@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flor Amarilla con RaphaelJS y AnimeJS</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body
+    class="flex flex-col items-center justify-center h-screen bg-[url('https://upload.wikimedia.org/wikipedia/commons/b/b4/Lionel-Messi-Argentina-2022-FIFA-World-Cup_%28cropped%29.jpg')] bg-no-repeat bg-cover bg-center"
+  >
+    <div id="canvas_container" class="mb-8"></div>
+
+    <h1
+      class="bg-yellow-100 p-2 rounded-lg text-4xl font-bold text-yellow-700 text-center"
+    >
+      Feliz día de flores amarillas ❤
+    </h1>
+
+    <script>
+      var paper = Raphael("canvas_container", 400, 400);
+
+      var center = paper.circle(200, 200, 30).attr({
+        fill: "yellow",
+        stroke: "orange",
+        "stroke-width": 5,
+      });
+
+      var petalAttributes = {
+        fill: "yellow",
+        stroke: "orange",
+        "stroke-width": 3,
+      };
+      var rama = paper
+        .path("M200 200 L200 400")
+        .attr({ "stroke-width": 3, stroke: "#00720A" });
+      var petal1 = paper.ellipse(200, 150, 20, 50).attr(petalAttributes);
+      var petal2 = paper.ellipse(250, 200, 50, 20).attr(petalAttributes);
+      var petal3 = paper.ellipse(200, 250, 20, 50).attr(petalAttributes);
+      var petal4 = paper.ellipse(150, 200, 50, 20).attr(petalAttributes);
+
+      var flowerGroup = paper.set(center, petal1, petal2, petal3, petal4);
+      var flowerGroupNode = flowerGroup.node;
+
+      anime({
+        targets: flowerGroupNode,
+        rotate: "1turn",
+        duration: 2000,
+        easing: "linear",
+        loop: true,
+        update: function (anim) {
+          flowerGroup.transform("r" + anim.progress * 3.6 + ",200,200");
+        },
+      });
+    </script>
+  </body>
+</html>
